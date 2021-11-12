@@ -19,7 +19,7 @@ jobs:
         go-version: 1.17
         
     - name: Integration Test
-      run: ./integration_test.shs
+      run: ./integration_test.sh
 
 #     - name: Build
 #       run: go build -v ./...
