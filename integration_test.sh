@@ -18,6 +18,8 @@ echo -e "${YELLOW}Create mock repo with contents:${NC}"
 mkdir temp
 touch temp/fake.js
 touch temp/.git
+mkdir temp/sub
+touch temp/sub/fake2.js
 echo hide >> temp/.gitignore
 mkdir temp/hide
 mkdir temp/hide/secret
@@ -35,7 +37,7 @@ echo
 echo -e "${YELLOW}Repoman mock repo with result:${NC}"    
 RESULT=$(./repoman temp)
 echo ${RESULT}
-if echo ${RESULT} | grep -q "[{Extension:js Count:1} {Extension:.gitignore Count:1}]" ; then
+if echo ${RESULT} | grep -q "[{Extension:js Count:2} {Extension:.gitignore Count:1}]" ; then
     echo -e "${GREEN}PASSED${NC}"
 else
     echo -e "${RED}FAILED${NC}"
