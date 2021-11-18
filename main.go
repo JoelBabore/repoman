@@ -61,6 +61,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	// TODO spit a warning if no .git
+
 	fileListQueue := make(chan *FileJob, FileListQueueSize)             // Files ready to be read from disk
 	fileSummaryJobQueue := make(chan *FileJob, FileSummaryJobQueueSize) // Files ready to be summarised
 
@@ -77,7 +79,6 @@ func main() {
 	}()
 	go fileProcessorWorker(fileListQueue, fileSummaryJobQueue)
 
-	// result := fileSummarize(fileSummaryJobQueue)
 	fileSummarize(fileSummaryJobQueue)
 
 	fmt.Printf("%+v\n", outcome)
@@ -156,21 +157,21 @@ DIRENTS:
 
 		for _, deny := range PathDenyList {
 			if strings.HasSuffix(path, deny) {
-				fmt.Println("skipping directory due to being in denylist: ", path)
+				fmt.Println("skipping", path, "due to being in denylist")
 				continue DIRENTS
 			}
 		}
 
 		for _, exclude := range dw.excludes {
 			if exclude.Match([]byte(name)) || exclude.Match([]byte(path)) {
-				fmt.Println("skipping file/directory due to match exclude: ", name)
+				fmt.Println("skipping", name, "due to match exclude")
 				continue DIRENTS
 			}
 		}
 
 		for _, ignore := range ignores {
 			if ignore.Match(path, isDir) {
-				fmt.Println("skipping directory due to ignore: ", path)
+				fmt.Println("skipping", path, "due to ignore")
 				continue DIRENTS
 			}
 		}
@@ -240,6 +241,9 @@ func newFileJob(path, name string, fileInfo os.FileInfo) *FileJob {
 // which also has a case insensitive cache in order to save
 // some needless processing
 func getExtension(name string) string {
+
+	// TODO doesn't seem to like spaces in file names
+
 	name = strings.ToLower(name)
 	extension := ""
 
