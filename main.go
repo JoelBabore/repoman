@@ -230,7 +230,7 @@ type DirectoryJob struct {
 }
 
 func newFileJob(path, name string, fileInfo os.FileInfo) *FileJob {
-	extension := getExtension(name)
+	extension := GetExtension(name)
 	return &FileJob{
 		Filename:  name,
 		Extension: extension,
@@ -240,7 +240,7 @@ func newFileJob(path, name string, fileInfo os.FileInfo) *FileJob {
 // A custom version of extracting extensions for a file
 // which also has a case insensitive cache in order to save
 // some needless processing
-func getExtension(name string) string {
+func GetExtension(name string) string {
 
 	// TODO doesn't seem to like spaces in file names
 

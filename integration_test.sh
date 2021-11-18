@@ -14,6 +14,10 @@ echo -e "${YELLOW}Building application...${NC}"
 go build 
 
 echo
+echo -e "${YELLOW}Running unit tests...${NC}"
+go test 
+
+echo
 echo -e "${YELLOW}Create mock repo with contents:${NC}"
 mkdir temp
 touch temp/fake.js
