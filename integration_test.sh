@@ -26,13 +26,8 @@ mkdir temp/hide
 mkdir temp/hide/secret
 touch temp/hide/shh.txt
 echo "###"
-# ls -Ra temp
 find -L temp
 echo "###"
-# echo temp/*/*/
-# find temp -maxdepth 1 -type df
-# ls -alrt temp
-# ls -alrt temp/hide
 
 echo
 echo -e "${YELLOW}Repoman mock repo with result:${NC}"    
